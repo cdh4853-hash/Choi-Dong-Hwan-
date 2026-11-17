@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f5f5f2">
+<meta name="theme-color" content="#f5f5f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<script>
+  // 저장된 화면 모드(자동/라이트/다크)를 그리기 전에 적용 → 깜빡임 방지
+  (function(){
+    var t = null;
+    try { t = localStorage.getItem('kakaotalk_theme'); } catch(e) {}
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -15,10 +25,28 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
   :root{
+    color-scheme:light;
     --bg:#f5f5f2; --card:#fff; --line:#e6e4dc; --text:#1f1f1c; --sub:#6b6a63;
-    --kakao:#fee500; --kakao-ink:#191600; --brand:#3b3a35; --ok:#1f8a4c; --bad:#c8402f; --warn:#b7791f;
+    --kakao:#fee500; --kakao-ink:#191600; --brand:#3b3a35; --on-brand:#fff; --ok:#1f8a4c; --bad:#c8402f; --warn:#b7791f;
+    --field:#fff; --chip:#efede6; --ok-bg:#e3f4ea; --bad-bg:#fbe6e3; --warn-bg:#fdf1dc; --help-bg:#faf9f4;
+    --switch-off:#d6d4cc; --knob:#fff; --handle:#ddd; --nav-bg:rgba(255,255,255,.96); --overlay:rgba(20,20,18,.45);
+    --chat:#b2c7da; --bubble:#fff; --bubble-line:#eee; --toast:#2b2a26; --arrow:#888;
     --radius:14px; --nav-h:62px;
   }
+  /* 다크모드: 설정이 '자동'이면 폰/PC 설정을 따르고, '다크'면 항상 다크 */
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ color-scheme:dark;
+    --bg:#141413; --card:#1e1e1c; --line:#33322e; --text:#ecebe6; --sub:#a3a199;
+    --brand:#ecebe4; --on-brand:#1a1a18; --ok:#4cc27e; --bad:#ff7a66; --warn:#e8b04f;
+    --field:#262623; --chip:#2c2b28; --ok-bg:#16301f; --bad-bg:#3a1d18; --warn-bg:#3a2d14; --help-bg:#1a1a18;
+    --switch-off:#4a4944; --knob:#f2f1ec; --handle:#55544f; --nav-bg:rgba(24,24,22,.94); --overlay:rgba(0,0,0,.6);
+    --chat:#2c3a47; --bubble:#33332f; --bubble-line:#45443f; --toast:#ecebe6; --arrow:#a3a199; } }
+  :root[data-theme="dark"]{ color-scheme:dark;
+    --bg:#141413; --card:#1e1e1c; --line:#33322e; --text:#ecebe6; --sub:#a3a199;
+    --brand:#ecebe4; --on-brand:#1a1a18; --ok:#4cc27e; --bad:#ff7a66; --warn:#e8b04f;
+    --field:#262623; --chip:#2c2b28; --ok-bg:#16301f; --bad-bg:#3a1d18; --warn-bg:#3a2d14; --help-bg:#1a1a18;
+    --switch-off:#4a4944; --knob:#f2f1ec; --handle:#55544f; --nav-bg:rgba(24,24,22,.94); --overlay:rgba(0,0,0,.6);
+    --chat:#2c3a47; --bubble:#33332f; --bubble-line:#45443f; --toast:#ecebe6; --arrow:#a3a199; }
+
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;background:var(--bg);color:var(--text);
     font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;font-size:15px;line-height:1.5;
@@ -33,11 +61,11 @@
   header.top h1{font-size:19px;margin:0;display:flex;align-items:center;gap:8px;white-space:nowrap}
   header.top h1 .dot{width:28px;height:28px;border-radius:8px;background:var(--kakao);display:inline-grid;place-items:center;font-size:15px}
   .top-actions{display:flex;gap:6px;align-items:center}
-  .icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;font-size:18px}
-  .icon-btn.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);display:grid;place-items:center;cursor:pointer;font-size:18px}
+  .icon-btn.on{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
 
   /* 하단 탭바 */
-  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--nav-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
   nav.tabs .inner{display:flex;width:100%;max-width:720px}
   nav.tabs button{flex:1;border:0;background:none;height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
@@ -51,9 +79,9 @@
   .muted{color:var(--sub);font-size:13px}
   .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .grow{flex:1;min-width:0}
-  .btn{border:1px solid var(--line);background:#fff;padding:0 14px;min-height:42px;border-radius:11px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+  .btn{border:1px solid var(--line);background:var(--card);color:var(--text);padding:0 14px;min-height:42px;border-radius:11px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}
   .btn:active{transform:scale(.98)}
-  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
   .btn.kakao{background:var(--kakao);border-color:var(--kakao);color:var(--kakao-ink);font-weight:600}
   .btn.danger{color:var(--bad)}
   .btn.sm{min-height:36px;padding:0 12px;font-size:14px;border-radius:10px}
@@ -61,14 +89,14 @@
   .btn:disabled{opacity:.5;cursor:default}
   /* iOS에서 입력칸 누를 때 화면 확대 방지 → 16px */
   input[type=text],input[type=email],input[type=password],input[type=time],input[type=date],input[type=number],select,textarea{
-    border:1px solid var(--line);border-radius:11px;padding:0 12px;min-height:44px;background:#fff;width:100%;font-size:16px;-webkit-appearance:none;appearance:none}
-  select{background-image:linear-gradient(45deg,transparent 50%,#888 50%),linear-gradient(135deg,#888 50%,transparent 50%);
+    border:1px solid var(--line);border-radius:11px;padding:0 12px;min-height:44px;background-color:var(--field);color:var(--text);width:100%;font-size:16px;-webkit-appearance:none;appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--arrow) 50%),linear-gradient(135deg,var(--arrow) 50%,transparent 50%);
     background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:30px}
   textarea{min-height:80px;padding:10px 12px;resize:vertical}
   label.f{display:block;margin-bottom:12px}
   label.f>span{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
-  .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:#efede6;color:var(--sub);white-space:nowrap}
-  .badge.ok{background:#e3f4ea;color:var(--ok)} .badge.bad{background:#fbe6e3;color:var(--bad)} .badge.warn{background:#fdf1dc;color:var(--warn)}
+  .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--chip);color:var(--sub);white-space:nowrap}
+  .badge.ok{background:var(--ok-bg);color:var(--ok)} .badge.bad{background:var(--bad-bg);color:var(--bad)} .badge.warn{background:var(--warn-bg);color:var(--warn)}
   .badge.kakao{background:var(--kakao);color:var(--kakao-ink)}
 
   /* 목록 */
@@ -89,13 +117,13 @@
   .days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
   .days label{border:1px solid var(--line);border-radius:10px;min-height:42px;display:grid;place-items:center;cursor:pointer;user-select:none}
   .days input{display:none}
-  .days label:has(input:checked){background:var(--brand);color:#fff;border-color:var(--brand)}
+  .days label:has(input:checked){background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
   .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
 
   .switch{position:relative;width:48px;height:28px;flex:none}
   .switch input{opacity:0;width:0;height:0}
-  .switch span{position:absolute;inset:0;background:#d6d4cc;border-radius:999px;cursor:pointer;transition:.15s}
-  .switch span::after{content:"";position:absolute;width:24px;height:24px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .switch span{position:absolute;inset:0;background:var(--switch-off);border-radius:999px;cursor:pointer;transition:.15s}
+  .switch span::after{content:"";position:absolute;width:24px;height:24px;left:2px;top:2px;background:var(--knob);border-radius:50%;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.15)}
   .switch input:checked+span{background:var(--ok)}
   .switch input:checked+span::after{left:22px}
 
@@ -112,27 +140,31 @@
   .filters .full{grid-column:1/-1}
 
   .empty{color:var(--sub);text-align:center;padding:22px 0;font-size:14px}
-  .modal-bg{position:fixed;inset:0;background:rgba(20,20,18,.45);display:flex;align-items:flex-end;justify-content:center;z-index:50}
-  .modal{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+  .modal-bg{position:fixed;inset:0;background:var(--overlay);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+  .modal{background:var(--card);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));
     animation:up .18s ease-out}
-  .modal::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:#ddd;margin:-6px auto 12px}
+  .modal::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:var(--handle);margin:-6px auto 12px}
   @keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
   @media(min-width:640px){.modal-bg{align-items:center}.modal{border-radius:18px}.modal::before{display:none}}
   .modal h3{margin:0 0 14px;font-size:17px}
   .modal-foot{display:flex;gap:8px;margin-top:16px}
   .modal-foot .btn{flex:1}
-  .chat{background:#b2c7da;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
-  .bubble{background:#fff;border-radius:4px 14px 14px 14px;padding:10px 12px;white-space:pre-wrap;font-size:14px;max-width:92%}
-  .bubble .lnk{display:block;margin-top:8px;padding-top:8px;border-top:1px solid #eee;text-align:center;color:var(--sub);font-size:13px}
-  .toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#2b2a26;color:#fff;padding:11px 16px;border-radius:12px;z-index:99;font-size:14px;width:max-content;max-width:calc(100vw - 32px)}
-  .toast.bad{background:var(--bad)}
+  .chat{background:var(--chat);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .bubble{background:var(--bubble);color:var(--text);border-radius:4px 14px 14px 14px;padding:10px 12px;white-space:pre-wrap;font-size:14px;max-width:92%}
+  .bubble .lnk{display:block;margin-top:8px;padding-top:8px;border-top:1px solid var(--bubble-line);text-align:center;color:var(--sub);font-size:13px}
+  .toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--toast);color:var(--bg);padding:11px 16px;border-radius:12px;z-index:99;font-size:14px;width:max-content;max-width:calc(100vw - 32px)}
+  .toast.bad{background:var(--bad);color:#fff}
   .login{max-width:380px;margin:10vh auto 0}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .stat{font-size:24px;font-weight:700}
-  .help{font-size:13px;color:var(--sub);background:#faf9f4;border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+  .help{font-size:13px;color:var(--sub);background:var(--help-bg);border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
   .fab-row{display:grid;grid-template-columns:minmax(0,1fr) 140px auto;gap:8px}
   .fab-row input{min-width:0}
   @media(max-width:420px){.fab-row{grid-template-columns:minmax(0,1fr) auto}.fab-row input[type=text]{grid-column:1/-1}}
+
+  /* 화면 모드 선택 */
+  .theme-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .theme-seg button.on{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
 </style>
 </head>
 <body>
@@ -224,6 +256,15 @@
 
   <!-- 설정 -->
   <section data-panel="settings" class="hidden">
+    <div class="card">
+      <h2>화면 모드</h2>
+      <div class="theme-seg" id="themeSeg">
+        <button class="btn" data-theme-set="auto">📱 자동</button>
+        <button class="btn" data-theme-set="light">☀️ 라이트</button>
+        <button class="btn" data-theme-set="dark">🌙 다크</button>
+      </div>
+      <p class="muted" style="margin:8px 0 0">자동은 폰·PC의 다크모드 설정을 그대로 따라가요. 이 기기에만 저장돼요.</p>
+    </div>
     <div class="card">
       <h2>날씨 지역</h2>
       <label class="f"><span>빠른 선택</span>
@@ -358,6 +399,12 @@ async function guard(promise, okMsg){
 async function callFn(name, body){
   const { data, error } = await sb.functions.invoke(name, { body });
   if(error){
+    // 응답 자체를 못 받은 경우 (폰 화면 전환·네트워크 끊김 등) — 서버에서는 처리됐을 수 있음
+    if(error.name === 'FunctionsFetchError' || /Failed to send a request/i.test(error.message)){
+      const e = new Error('서버 응답을 받지 못했어요. 인터넷 연결을 확인해 주세요.');
+      e.noResponse = true;
+      throw e;
+    }
     let msg = error.message;
     try{
       const ctx = error.context;
@@ -380,6 +427,33 @@ function openModal(html, onMount){
   if(onMount) onMount(bg.firstElementChild);
 }
 function closeModal(){ $('modalRoot').innerHTML = ''; }
+
+// =====================================================================
+// 화면 모드 (자동 / 라이트 / 다크) — 기기별 저장
+// =====================================================================
+function getTheme(){
+  try{ const t = localStorage.getItem('kakaotalk_theme'); return (t === 'light' || t === 'dark') ? t : 'auto'; }catch(_){ return 'auto'; }
+}
+function applyTheme(t){
+  if(t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  else document.documentElement.removeAttribute('data-theme');
+  // 상단 상태바 색상도 모드에 맞춤
+  const dark = t === 'dark' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+    if(t === 'auto') m.setAttribute('content', m.media.includes('dark') ? '#141413' : '#f5f5f2');
+    else m.setAttribute('content', dark ? '#141413' : '#f5f5f2');
+  });
+  document.querySelectorAll('#themeSeg [data-theme-set]').forEach(b => b.classList.toggle('on', b.dataset.themeSet === t));
+}
+$('themeSeg').addEventListener('click', e => {
+  const b = e.target.closest('[data-theme-set]'); if(!b) return;
+  const t = b.dataset.themeSet;
+  try{ if(t === 'auto') localStorage.removeItem('kakaotalk_theme'); else localStorage.setItem('kakaotalk_theme', t); }catch(_){}
+  applyTheme(t);
+  toast(t === 'dark' ? '다크 모드로 바꿨어요' : t === 'light' ? '라이트 모드로 바꿨어요' : '기기 설정을 따라가요');
+});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if(getTheme() === 'auto') applyTheme('auto'); });
+applyTheme(getTheme());
 
 // =====================================================================
 // 인증
@@ -597,7 +671,11 @@ document.addEventListener('click', async e => {
     try{
       await callFn('kakaotalk-dispatch', { action:'test', reminder_id: ts.dataset.test });
       toast('카톡을 보냈어요! 나와의 채팅방을 확인해 보세요.');
-    }catch(err){ toast(err.message, true); }
+    }catch(err){
+      // 응답을 못 받았어도 실제로는 발송됐을 수 있어서 기록으로 확인
+      if(err.noResponse) toast('응답을 못 받았어요. 카톡이 왔는지, 발송 기록에서 결과를 확인해 주세요.', true);
+      else toast(err.message, true);
+    }
     ts.disabled = false; ts.textContent = old;
     await loadTodayLogs(); renderHome();
     if(!document.querySelector('section[data-panel="logs"]').classList.contains('hidden')) searchLogs();
