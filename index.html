@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="카톡 비서">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvUlEQVR42u3dzU1jQRCF0UfJKbEkDKIkDJbEQRqIPeLHxpZ1b/f51pZnXum4ehj87IeP90P6tjECwSE4BIfgEByCQ3AIDsEhOCQ4BIfgEByCQ3AIDsEhOASHBIfgEByCQ3AIDsEhOASH4JDgEByCQ3AIDsEhOASH4BAcgkOCQ+d3WuZKnp4fc/4yry9vC4z0ofqD8aNArAelEkeFiQWUNOEoNdGrpAPHMiy6iAwZrqtyc6zKomWFDBmutGlz7MMifIUMGa69A8fOMgInMObCRzoOMgKnMWbBRy4OMmInM2Tw4c0+qsJhbYRPacjgw7GiEhzWRsXEhgw+HCuKx2FtFE3P5hAcCsfhTOmaoc0hOJSMw5lSN0mbQ8eyH8Hw5e38/35VpT3PsdV9Kzcf0y93eVz0Z6U9T84dLrOejItml/Y8Uf/smFXvDGt8jB9l77dRu7YLHIIj5lbjnx6f9jxwyOYQHIJDcBxr/s7pp8enPQ8csjlilsfvj0x7Hjju56PxMZviuPNvnnq3S9R/phX/yn7n93PAoT3ezyE/raz/5UVbfdCxzSE4FI7DydI1Q5tDcCgfh5OlaHo2h5JwWB4tcxvfV0WGY0U9OCyP/FmNL0Mkw7GiNhyWR/J8xjftkhF9rPCROZMxCzIK/kHKR9ocxlxMoOZH2Z19pF37/W5NONzK0PaSGPNypX2bY4cVEv4CGBN0XcWbY70V0sK9CUc7kboVeDrEBBxALI6j9FNQ4PDihgOLwzvBFj1TyLA5sIADC8fKDT/eTzYHFnBg4Vi51fe7at/NgQUcWDhWzj5TyLA5sIADC8fKNWcKGTaHhQEHFo6Va84UMmwOC+Nwa4IcK4JDcAgOCQ7BITgEh+AQHIJDcAgOwSHBITgEh+AQHIJDcAgOwSE4BIcEh+AQHIJDcAgOwSE4BIfgkODQ330CqOhHMS8gQh0AAAAASUVORK5CYII=">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACvUlEQVR42u3dzU1jQRCF0UfJKbEkDKIkDJbEQRqIPeLHxpZ1b/f51pZnXum4ehj87IeP90P6tjECwSE4BIfgEByCQ3AIDsEhOCQ4BIfgEByCQ3AIDsEhOASHBIfgEByCQ3AIDsEhOASH4JDgEByCQ3AIDsEhOASH4BAcgkOCQ+d3WuZKnp4fc/4yry9vC4z0ofqD8aNArAelEkeFiQWUNOEoNdGrpAPHMiy6iAwZrqtyc6zKomWFDBmutGlz7MMifIUMGa69A8fOMgInMObCRzoOMgKnMWbBRy4OMmInM2Tw4c0+qsJhbYRPacjgw7GiEhzWRsXEhgw+HCuKx2FtFE3P5hAcCsfhTOmaoc0hOJSMw5lSN0mbQ8eyH8Hw5e38/35VpT3PsdV9Kzcf0y93eVz0Z6U9T84dLrOejItml/Y8Uf/smFXvDGt8jB9l77dRu7YLHIIj5lbjnx6f9jxwyOYQHIJDcBxr/s7pp8enPQ8csjlilsfvj0x7Hjju56PxMZviuPNvnnq3S9R/phX/yn7n93PAoT3ezyE/raz/5UVbfdCxzSE4FI7DydI1Q5tDcCgfh5OlaHo2h5JwWB4tcxvfV0WGY0U9OCyP/FmNL0Mkw7GiNhyWR/J8xjftkhF9rPCROZMxCzIK/kHKR9ocxlxMoOZH2Z19pF37/W5NONzK0PaSGPNypX2bY4cVEv4CGBN0XcWbY70V0sK9CUc7kboVeDrEBBxALI6j9FNQ4PDihgOLwzvBFj1TyLA5sIADC8fKDT/eTzYHFnBg4Vi51fe7at/NgQUcWDhWzj5TyLA5sIADC8fKNWcKGTaHhQEHFo6Va84UMmwOC+Nwa4IcK4JDcAgOCQ7BITgEh+AQHIJDcAgOwSHBITgEh+AQHIJDcAgOwSE4BIcEh+AQHIJDcAgOwSE4BIfgkODQ330CqOhHMS8gQh0AAAAASUVORK5CYII=">
+<title>카톡 비서</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+  :root{
+    --bg:#f5f5f2; --card:#fff; --line:#e6e4dc; --text:#1f1f1c; --sub:#6b6a63;
+    --kakao:#fee500; --kakao-ink:#191600; --brand:#3b3a35; --ok:#1f8a4c; --bad:#c8402f; --warn:#b7791f;
+    --radius:14px; --nav-h:62px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;font-size:15px;line-height:1.5;
+    word-break:keep-all;overflow-wrap:anywhere}
+  button,input,select,textarea{font:inherit;color:inherit}
+  .hidden{display:none!important}
+  .wrap{max-width:720px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top)) 14px calc(var(--nav-h) + 24px + env(safe-area-inset-bottom))}
+  #loginView.wrap{padding-bottom:24px}
+
+  /* 상단 */
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;min-height:44px}
+  header.top h1{font-size:19px;margin:0;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  header.top h1 .dot{width:28px;height:28px;border-radius:8px;background:var(--kakao);display:inline-grid;place-items:center;font-size:15px}
+  .top-actions{display:flex;gap:6px;align-items:center}
+  .icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;font-size:18px}
+  .icon-btn.on{background:var(--brand);border-color:var(--brand);color:#fff}
+
+  /* 하단 탭바 */
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
+  nav.tabs .inner{display:flex;width:100%;max-width:720px}
+  nav.tabs button{flex:1;border:0;background:none;height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    font-size:11.5px;color:var(--sub);cursor:pointer;padding:0}
+  nav.tabs button .ic{font-size:21px;line-height:1;filter:grayscale(1);opacity:.65}
+  nav.tabs button.on{color:var(--text);font-weight:700}
+  nav.tabs button.on .ic{filter:none;opacity:1}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+  .card h2{font-size:16px;margin:0 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  .muted{color:var(--sub);font-size:13px}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .grow{flex:1;min-width:0}
+  .btn{border:1px solid var(--line);background:#fff;padding:0 14px;min-height:42px;border-radius:11px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+  .btn:active{transform:scale(.98)}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  .btn.kakao{background:var(--kakao);border-color:var(--kakao);color:var(--kakao-ink);font-weight:600}
+  .btn.danger{color:var(--bad)}
+  .btn.sm{min-height:36px;padding:0 12px;font-size:14px;border-radius:10px}
+  .btn.block{width:100%}
+  .btn:disabled{opacity:.5;cursor:default}
+  /* iOS에서 입력칸 누를 때 화면 확대 방지 → 16px */
+  input[type=text],input[type=email],input[type=password],input[type=time],input[type=date],input[type=number],select,textarea{
+    border:1px solid var(--line);border-radius:11px;padding:0 12px;min-height:44px;background:#fff;width:100%;font-size:16px;-webkit-appearance:none;appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,#888 50%),linear-gradient(135deg,#888 50%,transparent 50%);
+    background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:30px}
+  textarea{min-height:80px;padding:10px 12px;resize:vertical}
+  label.f{display:block;margin-bottom:12px}
+  label.f>span{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
+  .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:#efede6;color:var(--sub);white-space:nowrap}
+  .badge.ok{background:#e3f4ea;color:var(--ok)} .badge.bad{background:#fbe6e3;color:var(--bad)} .badge.warn{background:#fdf1dc;color:var(--warn)}
+  .badge.kakao{background:var(--kakao);color:var(--kakao-ink)}
+
+  /* 목록 */
+  .list{display:flex;flex-direction:column}
+  .item{display:flex;flex-direction:column;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+  .item:first-child{border-top:0;padding-top:4px}
+  .item-main{display:flex;gap:12px;align-items:center;min-width:0}
+  .item-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .item-actions .btn{flex:1}
+  .item .time{font-variant-numeric:tabular-nums;font-weight:700;font-size:17px;min-width:50px}
+  .item .t{font-weight:600}
+  .item .sub{color:var(--sub);font-size:13px;margin-top:1px}
+  .item.off .item-main{opacity:.45}
+  .item.done .t{text-decoration:line-through;color:var(--sub)}
+  .tap{cursor:pointer}
+  .check{width:24px;height:24px;flex:none;accent-color:var(--brand)}
+
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .days label{border:1px solid var(--line);border-radius:10px;min-height:42px;display:grid;place-items:center;cursor:pointer;user-select:none}
+  .days input{display:none}
+  .days label:has(input:checked){background:var(--brand);color:#fff;border-color:var(--brand)}
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+
+  .switch{position:relative;width:48px;height:28px;flex:none}
+  .switch input{opacity:0;width:0;height:0}
+  .switch span{position:absolute;inset:0;background:#d6d4cc;border-radius:999px;cursor:pointer;transition:.15s}
+  .switch span::after{content:"";position:absolute;width:24px;height:24px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .switch input:checked+span{background:var(--ok)}
+  .switch input:checked+span::after{left:22px}
+
+  /* 발송 기록 카드 */
+  .log{padding:12px 0;border-top:1px solid var(--line)}
+  .log:first-child{border-top:0;padding-top:4px}
+  .log .head{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .log .msg{white-space:pre-wrap;font-size:13px;color:var(--sub);margin-top:6px;max-height:4.6em;overflow:hidden}
+  .log .msg.err{color:var(--bad)}
+  .log.open .msg{max-height:none}
+  .filters{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:12px}
+  input,select{min-width:0}
+  input[type=date],input[type=time]{display:block}
+  .filters .full{grid-column:1/-1}
+
+  .empty{color:var(--sub);text-align:center;padding:22px 0;font-size:14px}
+  .modal-bg{position:fixed;inset:0;background:rgba(20,20,18,.45);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+  .modal{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+    animation:up .18s ease-out}
+  .modal::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:#ddd;margin:-6px auto 12px}
+  @keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+  @media(min-width:640px){.modal-bg{align-items:center}.modal{border-radius:18px}.modal::before{display:none}}
+  .modal h3{margin:0 0 14px;font-size:17px}
+  .modal-foot{display:flex;gap:8px;margin-top:16px}
+  .modal-foot .btn{flex:1}
+  .chat{background:#b2c7da;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .bubble{background:#fff;border-radius:4px 14px 14px 14px;padding:10px 12px;white-space:pre-wrap;font-size:14px;max-width:92%}
+  .bubble .lnk{display:block;margin-top:8px;padding-top:8px;border-top:1px solid #eee;text-align:center;color:var(--sub);font-size:13px}
+  .toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#2b2a26;color:#fff;padding:11px 16px;border-radius:12px;z-index:99;font-size:14px;width:max-content;max-width:calc(100vw - 32px)}
+  .toast.bad{background:var(--bad)}
+  .login{max-width:380px;margin:10vh auto 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .stat{font-size:24px;font-weight:700}
+  .help{font-size:13px;color:var(--sub);background:#faf9f4;border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+  .fab-row{display:grid;grid-template-columns:minmax(0,1fr) 140px auto;gap:8px}
+  .fab-row input{min-width:0}
+  @media(max-width:420px){.fab-row{grid-template-columns:minmax(0,1fr) auto}.fab-row input[type=text]{grid-column:1/-1}}
+</style>
+</head>
+<body>
+
+<!-- 로그인 -->
+<div id="loginView" class="wrap hidden">
+  <div class="login card">
+    <h2 style="justify-content:flex-start"><span class="badge kakao">카톡 비서</span></h2>
+    <p class="muted" style="margin-top:0">아침보고와 알림을 카카오톡으로 받아보세요.</p>
+    <label class="f"><span>이메일</span><input type="email" id="loginEmail" autocomplete="username"></label>
+    <label class="f"><span>비밀번호</span><input type="password" id="loginPw" autocomplete="current-password"></label>
+    <button class="btn primary" style="width:100%" id="loginBtn">로그인</button>
+    <p class="muted" style="margin-bottom:0">계정은 Supabase 대시보드 → Authentication → Users에서 만들어요.</p>
+  </div>
+</div>
+
+<!-- 앱 -->
+<div id="appView" class="wrap hidden">
+  <header class="top">
+    <h1><span class="dot">💬</span><span id="pageTitle">카톡 비서</span></h1>
+    <div class="top-actions">
+      <button class="icon-btn" id="refreshBtn" title="새로고침">↻</button>
+      <button class="icon-btn" data-tab="settings" id="settingsBtn" title="설정">⚙️</button>
+    </div>
+  </header>
+  <nav class="tabs" id="tabs"><div class="inner">
+    <button data-tab="home" class="on"><span class="ic">🏠</span>홈</button>
+    <button data-tab="reminders"><span class="ic">🔔</span>알림</button>
+    <button data-tab="todos"><span class="ic">📋</span>할 일</button>
+    <button data-tab="ddays"><span class="ic">📅</span>D-day</button>
+    <button data-tab="logs"><span class="ic">🧾</span>기록</button>
+  </div></nav>
+
+  <!-- 홈 -->
+  <section data-panel="home">
+    <div class="card" id="connCard"></div>
+    <div class="card">
+      <h2>오늘 예정 <span class="muted" id="todayLabel"></span></h2>
+      <div class="list" id="todayList"></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="muted">오늘 할 일</div><div class="stat" id="statTodo">-</div></div>
+      <div class="card"><div class="muted">이번 주 발송 실패</div><div class="stat" id="statFail">-</div></div>
+    </div>
+  </section>
+
+  <!-- 알림 -->
+  <section data-panel="reminders" class="hidden">
+    <div class="card">
+      <h2>알림 목록 <button class="btn primary sm" id="addReminderBtn">+ 알림 추가</button></h2>
+      <div class="list" id="reminderList"></div>
+    </div>
+    <div class="help">예정 시각에 맞춰 1분 안에 발송돼요. 서버가 잠깐 늦어도 30분 안에는 보내고, 같은 알림이 하루에 두 번 나가지는 않아요.</div>
+  </section>
+
+  <!-- 할 일 -->
+  <section data-panel="todos" class="hidden">
+    <div class="card">
+      <h2>할 일 추가</h2>
+      <div class="fab-row">
+        <input type="text" id="todoTitle" placeholder="예: 리팩 계약서 회신" enterkeyhint="done">
+        <input type="date" id="todoDue">
+        <button class="btn primary" id="todoAddBtn">추가</button>
+      </div>
+      <p class="muted" style="margin:8px 0 0">마감일이 오늘이거나 지난 미완료 할 일이 아침보고에 나와요.</p>
+    </div>
+    <div class="card">
+      <h2>
+        <span>할 일 목록</span>
+        <span class="row">
+          <select id="todoFilter" style="width:auto;min-height:36px">
+            <option value="open">미완료</option><option value="done">완료</option><option value="all">전체</option>
+          </select>
+          <button class="btn sm" id="todoExcelBtn">엑셀</button>
+        </span>
+      </h2>
+      <div class="list" id="todoList"></div>
+    </div>
+  </section>
+
+  <!-- D-day -->
+  <section data-panel="ddays" class="hidden">
+    <div class="card">
+      <h2>D-day <button class="btn primary sm" id="addDdayBtn">+ 추가</button></h2>
+      <div class="list" id="ddayList"></div>
+      <p class="muted" style="margin:8px 0 0">아침보고에는 가까운 순서로 3개까지 나와요.</p>
+    </div>
+  </section>
+
+  <!-- 설정 -->
+  <section data-panel="settings" class="hidden">
+    <div class="card">
+      <h2>날씨 지역</h2>
+      <label class="f"><span>빠른 선택</span>
+        <select id="cityPreset">
+          <option value="">직접 입력</option>
+        </select>
+      </label>
+      <div class="grid2">
+        <label class="f"><span>지역 이름</span><input type="text" id="setCity"></label>
+        <label class="f"><span>우산 기준 강수확률(%)</span><input type="number" id="setUmbrella" min="0" max="100"></label>
+        <label class="f"><span>위도</span><input type="number" id="setLat" step="0.0001"></label>
+        <label class="f"><span>경도</span><input type="number" id="setLon" step="0.0001"></label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>아침보고에 넣을 항목</h2>
+      <div class="list">
+        <div class="item"><div class="item-main"><div class="grow">🌤️ 날씨 (기온·강수확률·우산/겉옷 안내)</div><label class="switch"><input type="checkbox" id="setShowWeather"><span></span></label></div></div>
+        <div class="item"><div class="item-main"><div class="grow">😷 미세먼지 · 초미세먼지</div><label class="switch"><input type="checkbox" id="setShowAir"><span></span></label></div></div>
+        <div class="item"><div class="item-main"><div class="grow">📋 오늘 할 일 · 밀린 일</div><label class="switch"><input type="checkbox" id="setShowTodos"><span></span></label></div></div>
+        <div class="item"><div class="item-main"><div class="grow">📅 D-day</div><label class="switch"><input type="checkbox" id="setShowDdays"><span></span></label></div></div>
+      </div>
+      <p class="muted" style="margin:8px 0 0">마지막 한마디와 발송 시간은 '알림' 탭의 아침보고에서 바꿔요.</p>
+    </div>
+    <div class="card">
+      <h2>카톡 메시지의 '앱 열기' 버튼 주소</h2>
+      <input type="text" id="setAppUrl" placeholder="https://아이디.github.io/kakaotalk/" inputmode="url">
+      <button class="btn sm" id="useCurrentUrlBtn" style="margin-top:8px">현재 주소 사용</button>
+      <p class="muted" style="margin:8px 0 0">이 주소의 도메인을 카카오 디벨로퍼스 → 앱 → 플랫폼 → Web 사이트 도메인에 등록해야 버튼이 열려요.</p>
+    </div>
+    <button class="btn primary block" id="saveSettingsBtn">설정 저장</button>
+    <div class="card" style="margin-top:12px">
+      <h2>계정</h2>
+      <div class="muted" id="meEmail" style="margin-bottom:10px"></div>
+      <button class="btn block" id="logoutBtn">로그아웃</button>
+    </div>
+    <div class="help">💡 폰 홈 화면에 추가하면 앱처럼 쓸 수 있어요.<br>아이폰: 사파리 공유 → '홈 화면에 추가' / 안드로이드: 크롬 ⋮ → '홈 화면에 추가'</div>
+  </section>
+
+  <!-- 발송 기록 -->
+  <section data-panel="logs" class="hidden">
+    <div class="card">
+      <h2>발송 기록 <button class="btn sm" id="logExcelBtn">엑셀</button></h2>
+      <div class="filters">
+        <input type="date" id="logFrom" aria-label="시작일">
+        <input type="date" id="logTo" aria-label="종료일">
+        <select id="logStatus">
+          <option value="">전체 결과</option><option value="sent">성공</option><option value="failed">실패</option><option value="sending">발송중</option>
+        </select>
+        <button class="btn" id="logSearchBtn">조회</button>
+      </div>
+      <div class="list" id="logBody"></div>
+    </div>
+  </section>
+</div>
+
+<div id="modalRoot"></div>
+
+<script>
+// =====================================================================
+// 설정
+// =====================================================================
+const SUPABASE_URL = 'https://tfeeujepuxmnokbygpgw.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_ykFjNsBXzcfARlMOwfMrmw_Ecy4y3fC';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const DOW = ['일','월','화','수','목','금','토'];
+const CITY_PRESETS = [
+  ['부산', 35.1796, 129.0756], ['부산 강서구', 35.2122, 128.9807], ['부산 해운대구', 35.1631, 129.1635],
+  ['서울', 37.5665, 126.9780], ['김해', 35.2285, 128.8894], ['양산', 35.3350, 129.0372],
+  ['울산', 35.5384, 129.3114], ['창원', 35.2280, 128.6811], ['대구', 35.8714, 128.6014],
+];
+
+const S = { user:null, settings:null, reminders:[], todos:[], ddays:[], logs:[], conn:null, todayLogs:[] };
+
+// =====================================================================
+// 공통 유틸
+// =====================================================================
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function kstToday(offsetDays = 0){
+  const d = new Date(Date.now() + 9*3600*1000 + offsetDays*86400000);
+  return d.toISOString().slice(0,10);
+}
+function kstDow(){ return new Date(Date.now() + 9*3600*1000).getUTCDay(); }
+function fmtDateTime(iso){
+  if(!iso) return '-';
+  const d = new Date(new Date(iso).getTime() + 9*3600*1000);
+  return d.toISOString().slice(5,16).replace('T',' ');
+}
+function fmtDate(iso){
+  if(!iso) return '-';
+  const d = new Date(new Date(iso).getTime() + 9*3600*1000);
+  return d.toISOString().slice(0,10);
+}
+function hhmm(t){ return String(t||'').slice(0,5); }
+function daysLabel(days){
+  const s = [...days].sort().join(',');
+  if(s === '0,1,2,3,4,5,6') return '매일';
+  if(s === '1,2,3,4,5') return '평일';
+  if(s === '0,6') return '주말';
+  return [...days].sort((a,b)=>((a+6)%7)-((b+6)%7)).map(d=>DOW[d]).join('·');
+}
+function ddayText(target){
+  const diff = Math.round((Date.parse(target+'T00:00:00Z') - Date.parse(kstToday()+'T00:00:00Z'))/86400000);
+  if(diff === 0) return 'D-DAY';
+  return diff > 0 ? `D-${diff}` : `D+${-diff}`;
+}
+function appUrl(){ return location.origin + location.pathname; }
+// 웹 주소(https)로 열렸는지 — PC에 저장된 파일(file://)로 열면 카카오 연결 불가
+function isWebUrl(){ return location.protocol === 'https:' || (location.protocol === 'http:' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname)); }
+
+let toastTimer;
+function toast(msg, bad=false){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t = document.createElement('div');
+  t.className = 'toast' + (bad?' bad':'');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.remove(), bad?5000:2500);
+}
+
+async function guard(promise, okMsg){
+  const { data, error } = await promise;
+  if(error){ toast(error.message, true); throw error; }
+  if(okMsg) toast(okMsg);
+  return data;
+}
+
+// Edge Function 호출 (에러 메시지까지 꺼내기)
+async function callFn(name, body){
+  const { data, error } = await sb.functions.invoke(name, { body });
+  if(error){
+    let msg = error.message;
+    try{
+      const ctx = error.context;
+      if(ctx && typeof ctx.json === 'function'){
+        const j = await ctx.json();
+        if(j && j.error) msg = j.error;
+      }
+    }catch(_){}
+    throw new Error(msg);
+  }
+  if(data && data.error) throw new Error(data.error);
+  return data;
+}
+
+function openModal(html, onMount){
+  const root = $('modalRoot');
+  root.innerHTML = `<div class="modal-bg"><div class="modal">${html}</div></div>`;
+  const bg = root.firstElementChild;
+  bg.addEventListener('click', e => { if(e.target === bg) closeModal(); });
+  if(onMount) onMount(bg.firstElementChild);
+}
+function closeModal(){ $('modalRoot').innerHTML = ''; }
+
+// =====================================================================
+// 인증
+// =====================================================================
+$('loginBtn').onclick = async () => {
+  const email = $('loginEmail').value.trim(), password = $('loginPw').value;
+  if(!email || !password) return toast('이메일과 비밀번호를 입력해 주세요.', true);
+  $('loginBtn').disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  $('loginBtn').disabled = false;
+  if(error) toast(error.message === 'Invalid login credentials' ? '이메일 또는 비밀번호가 맞지 않아요.' : error.message, true);
+};
+$('loginPw').addEventListener('keydown', e => { if(e.key === 'Enter') $('loginBtn').click(); });
+$('logoutBtn').onclick = () => sb.auth.signOut();
+
+let started = false;
+sb.auth.onAuthStateChange((_evt, session) => {
+  if(session?.user){
+    S.user = session.user;
+    $('loginView').classList.add('hidden');
+    $('appView').classList.remove('hidden');
+    $('meEmail').textContent = session.user.email;
+    if(!started){ started = true; setTimeout(boot, 0); }
+  }else{
+    started = false;
+    S.user = null;
+    $('appView').classList.add('hidden');
+    $('loginView').classList.remove('hidden');
+  }
+});
+
+// =====================================================================
+// 시작
+// =====================================================================
+async function boot(){
+  handleKakaoReturn();
+  try{
+    await ensureDefaults();
+    await Promise.all([loadConn(), loadReminders(), loadTodos(), loadDdays(), loadTodayLogs()]);
+    renderAll();
+  }catch(e){ console.error(e); }
+}
+
+function handleKakaoReturn(){
+  const p = new URLSearchParams(location.search);
+  const k = p.get('kakao');
+  if(!k) return;
+  if(k === 'connected') toast('카카오 연결 완료! 홈에서 테스트 발송해 보세요.');
+  else toast('카카오 연결 실패: ' + (p.get('msg') || '알 수 없는 오류'), true);
+  p.delete('kakao'); p.delete('msg');
+  history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : '') + location.hash);
+}
+
+// 첫 로그인: 설정 + 기본 알림 2개 생성
+async function ensureDefaults(){
+  const existing = await guard(sb.from('kakaotalk_settings').select('*').maybeSingle());
+  if(existing){
+    S.settings = existing;
+    // 앱 주소가 비어 있고 지금 웹 주소로 열었으면 자동 등록 ('앱 열기' 버튼용)
+    if(!existing.app_url && isWebUrl()){
+      S.settings = await guard(sb.from('kakaotalk_settings').update({ app_url: appUrl() }).eq('user_id', S.user.id).select().single());
+    }
+    return;
+  }
+  S.settings = await guard(sb.from('kakaotalk_settings').insert({ user_id: S.user.id, app_url: isWebUrl() ? appUrl() : null }).select().single());
+  await guard(sb.from('kakaotalk_reminders').insert([
+    { user_id: S.user.id, kind:'morning_report', title:'아침보고', message:'오늘도 화이팅!', send_time:'07:00', days:[0,1,2,3,4,5,6] },
+    { user_id: S.user.id, kind:'text', title:'영양제 챙겨 드세요 💊', message:'점심 먹고 영양제 잊지 마세요!', send_time:'12:30', days:[0,1,2,3,4,5,6] },
+  ]));
+}
+
+async function loadConn(){
+  const rows = await guard(sb.rpc('kakaotalk_my_connection'));
+  S.conn = rows && rows.length ? rows[0] : null;
+}
+async function loadReminders(){
+  S.reminders = await guard(sb.from('kakaotalk_reminders').select('*').order('send_time'));
+}
+async function loadTodos(){
+  S.todos = await guard(sb.from('kakaotalk_todos').select('*').order('is_done').order('due_date', { ascending:true, nullsFirst:false }).order('created_at'));
+}
+async function loadDdays(){
+  S.ddays = await guard(sb.from('kakaotalk_ddays').select('*').order('target_date'));
+}
+async function loadTodayLogs(){
+  const weekAgo = kstToday(-6);
+  S.todayLogs = await guard(sb.from('kakaotalk_logs').select('reminder_id, status, trigger, send_date, created_at').gte('send_date', weekAgo).order('created_at', { ascending:false }));
+}
+
+function renderAll(){ renderHome(); renderReminders(); renderTodos(); renderDdays(); renderSettings(); }
+
+// =====================================================================
+// 탭
+// =====================================================================
+const TAB_TITLE = { home:'카톡 비서', reminders:'알림', todos:'할 일', ddays:'D-day', logs:'발송 기록', settings:'설정' };
+let currentTab = 'home';
+function showTab(tab){
+  currentTab = tab;
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x.dataset.tab === tab));
+  $('settingsBtn').classList.toggle('on', tab === 'settings');
+  document.querySelectorAll('section[data-panel]').forEach(p => p.classList.toggle('hidden', p.dataset.panel !== tab));
+  $('pageTitle').textContent = TAB_TITLE[tab] || '카톡 비서';
+  window.scrollTo(0, 0);
+  if(tab === 'logs') searchLogs();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('button[data-tab]'); if(!b) return;
+  showTab(b.dataset.tab);
+});
+
+// 새로고침 버튼 + 폰에서 앱으로 다시 돌아왔을 때 자동 갱신
+let lastRefresh = Date.now();
+async function refreshAll(){
+  if(!S.user) return;
+  lastRefresh = Date.now();
+  try{
+    await Promise.all([loadConn(), loadReminders(), loadTodos(), loadDdays(), loadTodayLogs()]);
+    renderAll();
+    if(currentTab === 'logs') await searchLogs();
+  }catch(_){}
+}
+$('refreshBtn').onclick = async () => { await refreshAll(); toast('새로고침했어요'); };
+document.addEventListener('visibilitychange', () => {
+  if(document.visibilityState === 'visible' && Date.now() - lastRefresh > 60000) refreshAll();
+});
+
+// =====================================================================
+// 홈
+// =====================================================================
+function renderHome(){
+  const c = S.conn;
+  let html;
+  if(!c){
+    html = `<h2>카카오 연결 <span class="badge warn">미연결</span></h2>
+      <p class="muted" style="margin-top:0">카카오 계정을 연결하면 '나와의 채팅방'으로 알림이 와요.</p>
+      <button class="btn kakao block" id="connectBtn">카카오 연결하기</button>`;
+  }else if(c.status === 'expired'){
+    html = `<h2>카카오 연결 <span class="badge bad">재연결 필요</span></h2>
+      <p class="muted" style="margin-top:0">${esc(c.last_error || '연결이 만료됐어요.')}</p>
+      <div class="item-actions"><button class="btn kakao" id="connectBtn">카카오 다시 연결</button><button class="btn danger" id="disconnectBtn">연결 해제</button></div>`;
+  }else{
+    html = `<h2>카카오 연결 <span class="badge ok">연결됨</span></h2>
+      <p class="muted" style="margin-top:0">${c.nickname ? esc(c.nickname)+' 님 · ' : ''}연결일 ${fmtDate(c.connected_at)}
+      ${c.refresh_expires_at ? `<br>자동 유지 기한 ${fmtDate(c.refresh_expires_at)} (알림이 나갈 때마다 자동 연장)` : ''}</p>
+      <div class="item-actions"><button class="btn" id="connectBtn">다시 연결</button><button class="btn danger" id="disconnectBtn">연결 해제</button></div>`;
+  }
+  $('connCard').innerHTML = html;
+  $('connectBtn').onclick = connectKakao;
+  if($('disconnectBtn')) $('disconnectBtn').onclick = disconnectKakao;
+
+  // 오늘 예정
+  const dow = kstDow(), today = kstToday();
+  $('todayLabel').textContent = `${today.slice(5).replace('-','/')} (${DOW[dow]})`;
+  const list = S.reminders.filter(r => r.is_active && r.days.includes(dow));
+  $('todayList').innerHTML = list.length ? list.map(r => {
+    const log = S.todayLogs.find(l => l.reminder_id === r.id && l.trigger === 'cron' && l.send_date === today);
+    const st = !log ? '<span class="badge">대기</span>'
+      : log.status === 'sent' ? '<span class="badge ok">발송됨</span>'
+      : log.status === 'failed' ? '<span class="badge bad">실패</span>' : '<span class="badge warn">발송중</span>';
+    return `<div class="item">
+      <div class="item-main">
+        <div class="time">${hhmm(r.send_time)}</div>
+        <div class="grow"><div class="t">${r.kind==='morning_report'?'🌅 ':'🔔 '}${esc(r.title)}</div></div>
+        ${st}
+      </div>
+      <div class="item-actions">
+        <button class="btn sm" data-preview="${r.id}">미리보기</button>
+        <button class="btn sm" data-test="${r.id}">지금 보내기</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty">오늘 예정된 알림이 없어요</div>';
+
+  const openToday = S.todos.filter(t => !t.is_done && t.due_date && t.due_date <= today).length;
+  $('statTodo').textContent = openToday + '건';
+  $('statFail').textContent = S.todayLogs.filter(l => l.status === 'failed').length + '건';
+}
+
+async function connectKakao(){
+  if(!isWebUrl()){
+    openModal(`<h3>웹 주소로 열어주세요</h3>
+      <p style="margin-top:0">지금은 PC에 저장된 파일로 열려 있어서, 카카오 로그인 후 돌아올 주소가 없어요.</p>
+      <p class="muted">GitHub Pages 주소(https://아이디.github.io/...)로 접속한 뒤 다시 눌러주세요.</p>
+      <div class="modal-foot"><button class="btn primary" id="mClose">확인</button></div>`,
+      m => m.querySelector('#mClose').onclick = closeModal);
+    return;
+  }
+  try{
+    const { url } = await callFn('kakaotalk-oauth', { action:'start', return_url: appUrl() });
+    location.href = url;
+  }catch(e){ toast(e.message, true); }
+}
+async function disconnectKakao(){
+  if(!confirm('카카오 연결을 해제할까요? 해제하면 알림이 발송되지 않아요.')) return;
+  try{
+    await callFn('kakaotalk-oauth', { action:'disconnect' });
+    await loadConn(); renderHome(); toast('연결을 해제했어요.');
+  }catch(e){ toast(e.message, true); }
+}
+
+// 미리보기 / 테스트 발송 (홈·알림·기록 탭 공통)
+document.addEventListener('click', async e => {
+  const pv = e.target.closest('[data-preview]');
+  const ts = e.target.closest('[data-test]');
+  if(pv){
+    pv.disabled = true;
+    try{
+      const { chunks } = await callFn('kakaotalk-dispatch', { action:'preview', reminder_id: pv.dataset.preview });
+      showPreview(chunks);
+    }catch(err){ toast(err.message, true); }
+    pv.disabled = false;
+  }
+  if(ts){
+    if(!S.conn) return toast('카카오를 먼저 연결해 주세요.', true);
+    ts.disabled = true; const old = ts.textContent; ts.textContent = '보내는 중…';
+    try{
+      await callFn('kakaotalk-dispatch', { action:'test', reminder_id: ts.dataset.test });
+      toast('카톡을 보냈어요! 나와의 채팅방을 확인해 보세요.');
+    }catch(err){ toast(err.message, true); }
+    ts.disabled = false; ts.textContent = old;
+    await loadTodayLogs(); renderHome();
+    if(!document.querySelector('section[data-panel="logs"]').classList.contains('hidden')) searchLogs();
+  }
+});
+
+function showPreview(chunks){
+  openModal(`<h3>카톡 미리보기 <span class="muted">(${chunks.length}건으로 발송)</span></h3>
+    <div class="chat">${chunks.map(c => `<div class="bubble">${esc(c)}<span class="lnk">앱 열기</span></div>`).join('')}</div>
+    <div class="modal-foot"><button class="btn" id="mClose">닫기</button></div>`,
+    m => m.querySelector('#mClose').onclick = closeModal);
+}
+
+// =====================================================================
+// 알림
+// =====================================================================
+function renderReminders(){
+  $('reminderList').innerHTML = S.reminders.length ? S.reminders.map(r => `
+    <div class="item ${r.is_active?'':'off'}">
+      <div class="item-main">
+        <div class="time">${hhmm(r.send_time)}</div>
+        <div class="grow tap" data-edit-rem="${r.id}">
+          <div class="t">${r.kind==='morning_report'?'🌅 ':'🔔 '}${esc(r.title)}</div>
+          <div class="sub">${daysLabel(r.days)}${r.message ? ' · ' + esc(r.message) : ''}</div>
+        </div>
+        <label class="switch" title="켜기/끄기"><input type="checkbox" data-toggle="${r.id}" ${r.is_active?'checked':''}><span></span></label>
+      </div>
+      <div class="item-actions">
+        <button class="btn sm" data-preview="${r.id}">미리보기</button>
+        <button class="btn sm" data-edit-rem="${r.id}">수정</button>
+      </div>
+    </div>`).join('') : '<div class="empty">알림이 없어요. + 알림 추가를 눌러보세요</div>';
+}
+
+$('reminderList').addEventListener('change', async e => {
+  const t = e.target.closest('[data-toggle]'); if(!t) return;
+  try{
+    await guard(sb.from('kakaotalk_reminders').update({ is_active: t.checked }).eq('id', t.dataset.toggle), t.checked ? '켰어요' : '껐어요');
+    await loadReminders(); renderReminders(); renderHome();
+  }catch(_){ t.checked = !t.checked; }
+});
+$('reminderList').addEventListener('click', e => {
+  const b = e.target.closest('[data-edit-rem]'); if(!b) return;
+  reminderForm(S.reminders.find(r => r.id === b.dataset.editRem));
+});
+$('addReminderBtn').onclick = () => reminderForm(null);
+
+function reminderForm(r){
+  const isNew = !r;
+  const v = r || { kind:'text', title:'', message:'', send_time:'12:30', days:[0,1,2,3,4,5,6] };
+  openModal(`<h3>${isNew?'알림 추가':'알림 수정'}</h3>
+    <label class="f"><span>종류</span><select id="fKind">
+      <option value="text" ${v.kind==='text'?'selected':''}>🔔 일반 알림 (정해진 문구)</option>
+      <option value="morning_report" ${v.kind==='morning_report'?'selected':''}>🌅 아침보고 (날씨·할 일·D-day)</option>
+    </select></label>
+    <label class="f"><span>제목</span><input type="text" id="fTitle" value="${esc(v.title)}" maxlength="60" placeholder="예: 영양제 챙겨 드세요 💊"></label>
+    <label class="f"><span id="fMsgLabel">${v.kind==='morning_report'?'마지막 한마디 (선택)':'내용 (선택)'}</span>
+      <textarea id="fMsg" maxlength="500">${esc(v.message)}</textarea></label>
+    <label class="f"><span>발송 시간</span><input type="time" id="fTime" value="${hhmm(v.send_time)}"></label>
+    <div class="f"><span class="muted" style="display:block;margin-bottom:4px">요일</span>
+      <div class="days" id="fDays">${[1,2,3,4,5,6,0].map(d => `<label><input type="checkbox" value="${d}" ${v.days.includes(d)?'checked':''}>${DOW[d]}</label>`).join('')}</div>
+      <div class="seg">
+        <button class="btn sm" data-q="0,1,2,3,4,5,6">매일</button><button class="btn sm" data-q="1,2,3,4,5">평일</button><button class="btn sm" data-q="0,6">주말</button>
+      </div>
+    </div>
+    <div class="modal-foot">
+      ${isNew?'':'<button class="btn danger" id="fDel" style="flex:0 0 auto">삭제</button>'}
+      <button class="btn" id="fCancel">취소</button><button class="btn primary" id="fSave">저장</button>
+    </div>`, m => {
+    m.querySelector('#fKind').onchange = ev => {
+      m.querySelector('#fMsgLabel').textContent = ev.target.value === 'morning_report' ? '마지막 한마디 (선택)' : '내용 (선택)';
+    };
+    m.querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
+      const set = b.dataset.q.split(',');
+      m.querySelectorAll('#fDays input').forEach(i => i.checked = set.includes(i.value));
+    });
+    m.querySelector('#fCancel').onclick = closeModal;
+    if(!isNew) m.querySelector('#fDel').onclick = async () => {
+      if(!confirm(`'${v.title}' 알림을 삭제할까요?`)) return;
+      await guard(sb.from('kakaotalk_reminders').delete().eq('id', v.id), '삭제했어요');
+      closeModal(); await loadReminders(); renderReminders(); renderHome();
+    };
+    m.querySelector('#fSave').onclick = async () => {
+      const row = {
+        kind: m.querySelector('#fKind').value,
+        title: m.querySelector('#fTitle').value.trim(),
+        message: m.querySelector('#fMsg').value.trim(),
+        send_time: m.querySelector('#fTime').value,
+        days: [...m.querySelectorAll('#fDays input:checked')].map(i => Number(i.value)),
+      };
+      if(!row.title) return toast('제목을 입력해 주세요.', true);
+      if(!row.send_time) return toast('발송 시간을 정해 주세요.', true);
+      if(!row.days.length) return toast('요일을 하나 이상 골라 주세요.', true);
+      if(isNew) await guard(sb.from('kakaotalk_reminders').insert({ ...row, user_id: S.user.id }), '추가했어요');
+      else await guard(sb.from('kakaotalk_reminders').update(row).eq('id', v.id), '저장했어요');
+      closeModal(); await loadReminders(); renderReminders(); renderHome();
+    };
+  });
+}
+
+// =====================================================================
+// 할 일
+// =====================================================================
+$('todoDue').value = kstToday();
+$('todoAddBtn').onclick = async () => {
+  const title = $('todoTitle').value.trim();
+  if(!title) return toast('할 일을 입력해 주세요.', true);
+  await guard(sb.from('kakaotalk_todos').insert({ user_id: S.user.id, title, due_date: $('todoDue').value || null }), '추가했어요');
+  $('todoTitle').value = '';
+  await loadTodos(); renderTodos(); renderHome();
+};
+$('todoTitle').addEventListener('keydown', e => { if(e.key === 'Enter' && !e.isComposing) $('todoAddBtn').click(); });
+$('todoFilter').onchange = renderTodos;
+
+function filteredTodos(){
+  const f = $('todoFilter').value;
+  return S.todos.filter(t => f === 'all' || (f === 'done' ? t.is_done : !t.is_done));
+}
+function renderTodos(){
+  const today = kstToday();
+  const list = filteredTodos();
+  $('todoList').innerHTML = list.length ? list.map(t => {
+    const late = !t.is_done && t.due_date && t.due_date < today;
+    return `<div class="item ${t.is_done?'done':''}">
+      <div class="item-main">
+        <input type="checkbox" class="check" data-done="${t.id}" ${t.is_done?'checked':''} aria-label="완료">
+        <div class="grow tap" data-edit-todo="${t.id}"><div class="t">${esc(t.title)}</div>
+          <div class="sub">${t.due_date ? (late ? `<span style="color:var(--bad)">마감 ${t.due_date} (밀림)</span>` : `마감 ${t.due_date}`) : '마감일 없음'}${t.memo ? ' · ' + esc(t.memo) : ''}</div></div>
+        <span class="muted">›</span>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty">할 일이 없어요</div>';
+}
+$('todoList').addEventListener('change', async e => {
+  const c = e.target.closest('[data-done]'); if(!c) return;
+  await guard(sb.from('kakaotalk_todos').update({ is_done: c.checked, done_at: c.checked ? new Date().toISOString() : null }).eq('id', c.dataset.done));
+  await loadTodos(); renderTodos(); renderHome();
+});
+$('todoList').addEventListener('click', e => {
+  const b = e.target.closest('[data-edit-todo]'); if(!b) return;
+  const t = S.todos.find(x => x.id === b.dataset.editTodo);
+  openModal(`<h3>할 일 수정</h3>
+    <label class="f"><span>할 일</span><input type="text" id="tTitle" value="${esc(t.title)}"></label>
+    <label class="f"><span>마감일</span><input type="date" id="tDue" value="${t.due_date || ''}"></label>
+    <label class="f"><span>메모</span><textarea id="tMemo">${esc(t.memo)}</textarea></label>
+    <div class="modal-foot">
+      <button class="btn danger" id="tDel" style="flex:0 0 auto">삭제</button>
+      <button class="btn" id="tCancel">취소</button><button class="btn primary" id="tSave">저장</button>
+    </div>`, m => {
+    m.querySelector('#tCancel').onclick = closeModal;
+    m.querySelector('#tDel').onclick = async () => {
+      if(!confirm('삭제할까요?')) return;
+      await guard(sb.from('kakaotalk_todos').delete().eq('id', t.id), '삭제했어요');
+      closeModal(); await loadTodos(); renderTodos(); renderHome();
+    };
+    m.querySelector('#tSave').onclick = async () => {
+      const title = m.querySelector('#tTitle').value.trim();
+      if(!title) return toast('할 일을 입력해 주세요.', true);
+      await guard(sb.from('kakaotalk_todos').update({ title, due_date: m.querySelector('#tDue').value || null, memo: m.querySelector('#tMemo').value.trim() }).eq('id', t.id), '저장했어요');
+      closeModal(); await loadTodos(); renderTodos(); renderHome();
+    };
+  });
+});
+$('todoExcelBtn').onclick = () => {
+  const rows = filteredTodos().map(t => ({ '할 일': t.title, '마감일': t.due_date || '', '상태': t.is_done ? '완료' : '미완료', '완료일시': t.done_at ? fmtDateTime(t.done_at) : '', '메모': t.memo, '등록일': fmtDate(t.created_at) }));
+  exportExcel(rows, '할일', `카톡비서_할일_${kstToday()}.xlsx`);
+};
+
+// =====================================================================
+// D-day
+// =====================================================================
+function renderDdays(){
+  $('ddayList').innerHTML = S.ddays.length ? S.ddays.map(d => `
+    <div class="item ${d.is_active?'':'off'}">
+      <div class="item-main tap" data-edit-dday="${d.id}">
+        <div class="time" style="min-width:72px">${ddayText(d.target_date)}</div>
+        <div class="grow"><div class="t">${esc(d.title)}</div><div class="sub">${d.target_date}${d.is_active?'':' · 아침보고 제외'}</div></div>
+        <span class="muted">›</span>
+      </div>
+    </div>`).join('') : '<div class="empty">D-day가 없어요</div>';
+}
+$('addDdayBtn').onclick = () => ddayForm(null);
+$('ddayList').addEventListener('click', e => {
+  const b = e.target.closest('[data-edit-dday]'); if(!b) return;
+  ddayForm(S.ddays.find(d => d.id === b.dataset.editDday));
+});
+function ddayForm(d){
+  const isNew = !d;
+  const v = d || { title:'', target_date: kstToday(30), is_active:true };
+  openModal(`<h3>${isNew?'D-day 추가':'D-day 수정'}</h3>
+    <label class="f"><span>이름</span><input type="text" id="dTitle" value="${esc(v.title)}" placeholder="예: 리팩 포장기 입고"></label>
+    <label class="f"><span>날짜</span><input type="date" id="dDate" value="${v.target_date}"></label>
+    <div class="item-main" style="padding:4px 0 8px"><div class="grow">아침보고에 표시</div><label class="switch"><input type="checkbox" id="dActive" ${v.is_active?'checked':''}><span></span></label></div>
+    <div class="modal-foot">
+      ${isNew?'':'<button class="btn danger" id="dDel" style="flex:0 0 auto">삭제</button>'}
+      <button class="btn" id="dCancel">취소</button><button class="btn primary" id="dSave">저장</button>
+    </div>`, m => {
+    m.querySelector('#dCancel').onclick = closeModal;
+    if(!isNew) m.querySelector('#dDel').onclick = async () => {
+      if(!confirm('삭제할까요?')) return;
+      await guard(sb.from('kakaotalk_ddays').delete().eq('id', v.id), '삭제했어요');
+      closeModal(); await loadDdays(); renderDdays();
+    };
+    m.querySelector('#dSave').onclick = async () => {
+      const row = { title: m.querySelector('#dTitle').value.trim(), target_date: m.querySelector('#dDate').value, is_active: m.querySelector('#dActive').checked };
+      if(!row.title) return toast('이름을 입력해 주세요.', true);
+      if(!row.target_date) return toast('날짜를 골라 주세요.', true);
+      if(isNew) await guard(sb.from('kakaotalk_ddays').insert({ ...row, user_id: S.user.id }), '추가했어요');
+      else await guard(sb.from('kakaotalk_ddays').update(row).eq('id', v.id), '저장했어요');
+      closeModal(); await loadDdays(); renderDdays();
+    };
+  });
+}
+
+// =====================================================================
+// 설정
+// =====================================================================
+$('cityPreset').innerHTML += CITY_PRESETS.map((c,i) => `<option value="${i}">${c[0]}</option>`).join('');
+$('cityPreset').onchange = e => {
+  const c = CITY_PRESETS[e.target.value]; if(!c) return;
+  $('setCity').value = c[0]; $('setLat').value = c[1]; $('setLon').value = c[2];
+};
+function renderSettings(){
+  const s = S.settings; if(!s) return;
+  $('setCity').value = s.city_name; $('setLat').value = s.latitude; $('setLon').value = s.longitude;
+  $('setUmbrella').value = s.umbrella_threshold;
+  $('setShowWeather').checked = s.show_weather; $('setShowAir').checked = s.show_air;
+  $('setShowTodos').checked = s.show_todos; $('setShowDdays').checked = s.show_ddays;
+  $('setAppUrl').value = s.app_url || '';
+  const idx = CITY_PRESETS.findIndex(c => c[0] === s.city_name && Math.abs(c[1]-s.latitude) < 0.001 && Math.abs(c[2]-s.longitude) < 0.001);
+  $('cityPreset').value = idx >= 0 ? String(idx) : '';
+}
+$('useCurrentUrlBtn').onclick = () => {
+  if(!isWebUrl()) return toast('PC 파일로 열려 있어서 사용할 수 없어요. 웹 주소로 접속해 주세요.', true);
+  $('setAppUrl').value = appUrl();
+};
+$('saveSettingsBtn').onclick = async () => {
+  const lat = Number($('setLat').value), lon = Number($('setLon').value), umb = Number($('setUmbrella').value);
+  const city = $('setCity').value.trim(), url = $('setAppUrl').value.trim();
+  if(!city) return toast('지역 이름을 입력해 주세요.', true);
+  if(!(lat >= 33 && lat <= 39 && lon >= 124 && lon <= 132)) return toast('위도/경도가 국내 범위를 벗어났어요.', true);
+  if(!(umb >= 0 && umb <= 100)) return toast('우산 기준은 0~100 사이로 입력해 주세요.', true);
+  if(url && !/^https?:\/\//.test(url)) return toast('앱 주소는 https:// 로 시작해야 해요.', true);
+  S.settings = await guard(sb.from('kakaotalk_settings').update({
+    city_name: city, latitude: lat, longitude: lon, umbrella_threshold: umb, app_url: url || null,
+    show_weather: $('setShowWeather').checked, show_air: $('setShowAir').checked,
+    show_todos: $('setShowTodos').checked, show_ddays: $('setShowDdays').checked,
+  }).eq('user_id', S.user.id).select().single(), '설정을 저장했어요');
+  renderSettings();
+};
+
+// =====================================================================
+// 발송 기록
+// =====================================================================
+$('logFrom').value = kstToday(-6); $('logTo').value = kstToday();
+$('logSearchBtn').onclick = searchLogs;
+async function searchLogs(){
+  const from = $('logFrom').value, to = $('logTo').value;
+  if(from && to && from > to) return toast('시작일이 종료일보다 늦어요.', true);
+  let q = sb.from('kakaotalk_logs').select('*').order('created_at', { ascending:false }).limit(500);
+  if(from) q = q.gte('send_date', from);
+  if(to) q = q.lte('send_date', to);
+  if($('logStatus').value) q = q.eq('status', $('logStatus').value);
+  S.logs = await guard(q);
+  const ST = { sent:'<span class="badge ok">성공</span>', failed:'<span class="badge bad">실패</span>', sending:'<span class="badge warn">발송중</span>' };
+  $('logBody').innerHTML = S.logs.length ? S.logs.map(l => `<div class="log">
+    <div class="head">
+      ${ST[l.status] || esc(l.status)}
+      <span class="t" style="font-weight:600">${esc(l.reminder_title)}</span>
+      <span class="badge">${l.trigger === 'cron' ? '예약' : '수동'}</span>
+      <span class="muted" style="margin-left:auto">${fmtDateTime(l.created_at)}</span>
+    </div>
+    ${l.error ? `<div class="msg err">${esc(l.error)}</div>` : (l.message ? `<div class="msg tap" data-expand>${esc(l.message)}</div>` : '')}
+    ${l.status === 'failed' && l.reminder_id ? `<div class="item-actions" style="margin-top:8px"><button class="btn sm" data-test="${l.reminder_id}">다시 보내기</button></div>` : ''}
+  </div>`).join('') : '<div class="empty">기록이 없어요</div>';
+}
+$('logBody').addEventListener('click', e => {
+  const m = e.target.closest('[data-expand]'); if(m) m.closest('.log').classList.toggle('open');
+});
+$('logExcelBtn').onclick = () => {
+  const rows = S.logs.map(l => ({ '일시': fmtDateTime(l.created_at), '발송일': l.send_date, '알림': l.reminder_title, '종류': l.kind === 'morning_report' ? '아침보고' : '일반', '구분': l.trigger === 'cron' ? '예약' : '수동', '결과': l.status === 'sent' ? '성공' : l.status === 'failed' ? '실패' : '발송중', '메시지 수': l.chunks, '내용': l.message, '오류': l.error || '' }));
+  exportExcel(rows, '발송기록', `카톡비서_발송기록_${$('logFrom').value}_${$('logTo').value}.xlsx`);
+};
+
+function exportExcel(rows, sheet, file){
+  if(!rows.length) return toast('내보낼 데이터가 없어요.', true);
+  const ws = XLSX.utils.json_to_sheet(rows);
+  ws['!cols'] = Object.keys(rows[0]).map(k => ({ wch: Math.min(60, Math.max(k.length*2+2, ...rows.map(r => String(r[k] ?? '').length + 2))) }));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, sheet);
+  XLSX.writeFile(wb, file);
+}
+
+// 세션 없으면 로그인 화면
+sb.auth.getSession().then(({ data }) => { if(!data.session) $('loginView').classList.remove('hidden'); });
+</script>
+</body>
+</html>
